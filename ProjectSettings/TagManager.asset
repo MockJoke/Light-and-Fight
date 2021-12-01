@@ -7,6 +7,7 @@ TagManager:
   - Player_Lighter
   - Player_Fighter
   - BossEnemy
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -44,9 +45,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Players
-    uniqueID: 3395410987
+  - name: BackGround
+    uniqueID: 295601481
+    locked: 0
+  - name: Rocks
+    uniqueID: 3204869917
+    locked: 0
+  - name: MiniEnemy
+    uniqueID: 1448887327
     locked: 0
   - name: BossEnemy
     uniqueID: 4089940697
+    locked: 0
+  - name: Players
+    uniqueID: 3395410987
     locked: 0
