@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Player_Lighter
+  - Player_Fighter
+  - BossEnemy
   layers:
   - Default
   - TransparentFX
@@ -44,4 +46,7 @@ TagManager:
     locked: 0
   - name: Players
     uniqueID: 3395410987
+    locked: 0
+  - name: BossEnemy
+    uniqueID: 4089940697
     locked: 0
