@@ -18,7 +18,7 @@ public class PlayerMovementHandler : MonoBehaviour
     public KeyCode jump;
 
     public Action onJump; 
-    public Action<int> onMove; 
+    public Action<int> onWalk; 
 
     void Start()
     {
@@ -50,7 +50,7 @@ public class PlayerMovementHandler : MonoBehaviour
             horizontal = 1;
             currentDirection = horizontal; 
         }
-        onMove?.Invoke(horizontal);
+        onWalk?.Invoke(horizontal);
         return horizontal; 
     }
 
