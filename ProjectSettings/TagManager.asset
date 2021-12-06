@@ -8,6 +8,8 @@ TagManager:
   - Player_Fighter
   - BossEnemy
   - Platform
+  - Ground
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX
