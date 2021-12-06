@@ -8,7 +8,7 @@ public class PlayerMovementHandler : MonoBehaviour
     [Header("Movement Variables")]
     public float speed = 10; 
     public float jumpForce = 10;
-    [HideInInspector] public float currentDirection = 1; 
+    [HideInInspector] public int currentDirection = 1; 
 
     Rigidbody2D m_Rigidbody;
     
