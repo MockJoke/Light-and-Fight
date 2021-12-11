@@ -4,26 +4,43 @@ using UnityEngine;
 
 public class BossAnimationController : MonoBehaviour
 {
-    private BossEnemyMovementHandler BossEnemyMovementHandler;
+    private BossEnemyMovementHandler bossEnemyMovementHandler;
     private BossCollisionDetectionHandler bossCollisionDetectionHandler;
+    private BossAttackHandler bossAttackHandler; 
     private Animator animator; 
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        BossEnemyMovementHandler = GetComponent<BossEnemyMovementHandler>();
+        bossEnemyMovementHandler = GetComponent<BossEnemyMovementHandler>();
         bossCollisionDetectionHandler = GetComponent<BossCollisionDetectionHandler>();
-        BossEnemyMovementHandler.onHitLight += OnLight;
-        bossCollisionDetectionHandler.OnHurt += OnHurt; 
+
+        GameObject attackHandler = GameObject.Find("Mouth");
+        bossAttackHandler = attackHandler.GetComponent<BossAttackHandler>();
+        bossEnemyMovementHandler.onHitLight += OnLight;
+        bossCollisionDetectionHandler.onHurt += OnHurt;
+        bossAttackHandler.onSpit += OnSpit;
     }
 
     void OnLight()
     {
-        animator.SetTrigger("")
+        animator.SetTrigger("onLight"); 
     }
 
     void OnHurt()
     {
+        animator.SetTrigger("Hurt"); 
+    }
 
+    void OnSpit()
+    {
+        animator.SetTrigger("onSpit");
+    }
+
+    private void OnDestroy()
+    {
+        bossEnemyMovementHandler.onHitLight -= OnLight;
+        bossCollisionDetectionHandler.onHurt -= OnHurt;
+        bossAttackHandler.onSpit -= OnSpit;
     }
 }

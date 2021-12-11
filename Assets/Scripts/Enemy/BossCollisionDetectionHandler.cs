@@ -5,13 +5,13 @@ using System;
 
 public class BossCollisionDetectionHandler : MonoBehaviour
 {
-    public Action OnHurt;
+    public Action onHurt;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("PlayerAttack"))
         {
-            OnHurt?.Invoke(); 
+            onHurt?.Invoke(); 
         }
     }
 }
