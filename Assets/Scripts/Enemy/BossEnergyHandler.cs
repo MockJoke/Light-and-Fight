@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BossEnergyHandler : MonoBehaviour
 {
     public Image energyBar;
-    public GameObject victoryScreen; 
+    [SerializeField] private GameObject victoryScreen; 
     private BossCollisionDetectionHandler collisionDetectionHandler;
 
     void Start()
@@ -21,7 +21,9 @@ public class BossEnergyHandler : MonoBehaviour
         energyBar.fillAmount -= 0.05f; 
         if(energyBar.fillAmount <= 0)
         {
+            GameObject gameScreen = GameObject.Find("GameScreen");
             victoryScreen.SetActive(true);
+            gameScreen.SetActive(false);
         }
     }
 
