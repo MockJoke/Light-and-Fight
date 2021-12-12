@@ -11,13 +11,14 @@ public class BossEnergyHandler : MonoBehaviour
 
     void Start()
     {
+        energyBar.fillAmount = 1f; 
         collisionDetectionHandler = GetComponent<BossCollisionDetectionHandler>(); 
         collisionDetectionHandler.onHurt += UpdateBar;    
     }
 
     void UpdateBar()
     {
-        energyBar.fillAmount -= 0.5f; 
+        energyBar.fillAmount -= 0.05f; 
         if(energyBar.fillAmount <= 0)
         {
             victoryScreen.SetActive(true);

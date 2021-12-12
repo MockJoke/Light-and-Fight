@@ -20,7 +20,7 @@ public class BossEnemyMovementHandler : MonoBehaviour
         playerLight = GameObject.FindGameObjectWithTag("Player_Lighter"); 
         platforms = GameObject.FindGameObjectsWithTag("Platform");
         boxCollider = GetComponent<BoxCollider2D>();
-        Move(); 
+        Move();  
     }
 
     void FixedUpdate()
@@ -55,23 +55,39 @@ public class BossEnemyMovementHandler : MonoBehaviour
     IEnumerator DelayedMove(float time)
     {
         yield return new WaitForSeconds(time);
-        Move(); 
+        Move();  
     }
-    private void Move()
-    {  
-        //setting position of enemy at a random platform 
+
+    Vector2 getValidPosition()
+    {
         GameObject gotoPlatform = platforms[UnityEngine.Random.Range(0, platforms.Length)];
         Vector2 platformPos = gotoPlatform.transform.position;
-        transform.position = platformPos + (Vector2.up * platfromOffsetY);
-        
-        //move the enemy only when it's on light
-        if(!isOnLight())
+
+        bool isIntersecting = Physics2D.OverlapCircle(platformPos + (Vector2.up * platfromOffsetY), 0.1f);
+        if(isIntersecting)
         {
-            moving = false; 
+            return getValidPosition();
         }
         else
         {
-            Move(); 
+            return platformPos; 
         }
+    } 
+
+    private void Move()
+    {
+        transform.position = getValidPosition() + (Vector2.up * platfromOffsetY);
+        moving = false;
+        ////move the enemy only when it's on light
+        //if (!isOnLight())
+        //{ 
+        //    moving = false;
+        //}
+        //else
+        //{
+        //    transform.position = getValidPosition() + (Vector2.up * platfromOffsetY);
+        //    //moving = true; 
+        //    //Move(platformPos);
+        //}        
     }
 }

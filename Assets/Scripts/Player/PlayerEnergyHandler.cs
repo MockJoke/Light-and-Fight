@@ -11,6 +11,7 @@ public class PlayerEnergyHandler : MonoBehaviour
 
     void Start()
     {
+        energyBar.fillAmount = 1f;
         collisionDetectionHandler = GetComponent<CollisionDetectionHandler>();
         collisionDetectionHandler.onTouchEnemy += UpdateBar; 
     }
