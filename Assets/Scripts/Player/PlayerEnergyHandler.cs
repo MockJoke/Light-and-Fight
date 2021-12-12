@@ -7,16 +7,26 @@ public class PlayerEnergyHandler : MonoBehaviour
 {
     public Image energyBar;
     public GameObject gameoverScreen; 
-    public CollisionDetectionHandler collisionDetectionHandler;
+    private CollisionDetectionHandler collisionDetectionHandler;
 
     void Start()
     {
-        
+        energyBar.fillAmount = 1f;
+        collisionDetectionHandler = GetComponent<CollisionDetectionHandler>();
+        collisionDetectionHandler.onTouchEnemy += UpdateBar; 
     }
 
-    // Update is called once per frame
-    void Update()
+    void UpdateBar()
     {
-        
+        energyBar.fillAmount -= 0.02f; 
+        if(energyBar.fillAmount <= 0)
+        {
+            gameoverScreen.SetActive(true);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        collisionDetectionHandler.onTouchEnemy -= UpdateBar;
     }
 }

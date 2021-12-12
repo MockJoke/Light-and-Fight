@@ -33,7 +33,12 @@ public class BossAttackHandler : MonoBehaviour
     {
         onSpit?.Invoke();
         GameObject spit = GameObject.Instantiate(spitPrefab);
+
+        GameObject spitContainer = GameObject.Find("SpitContainer"); 
+        spit.transform.SetParent(spitContainer.transform); 
+
         spit.transform.position = transform.position;
-        spit.transform.parent = null;
+        Vector3 spitDir = (playerTarget.transform.position - transform.position).normalized; 
+        spit.GetComponent<BossSpitHandler>().spitDirection(spitDir); 
     }
 }
