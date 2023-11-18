@@ -114,7 +114,7 @@ TextureImporter:
       213: -6422009252439442412
     second: rocks-small-10
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -131,10 +131,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -173,6 +175,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -184,6 +188,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -196,6 +201,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -208,6 +214,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -220,6 +227,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1012,9 +1033,46 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      rocks-01_16: -1203285637041545040
+      rocks-big-1: -2911989379006228607
+      rocks-big-10: -4052902227884547875
+      rocks-big-11: 2185209629639974709
+      rocks-big-2: -2727909173800591571
+      rocks-big-3: 6967626574290731694
+      rocks-big-4: 5547663045978452315
+      rocks-big-5: 5370874760774867213
+      rocks-big-6: 8311029700323322795
+      rocks-big-7: 1860397889446755753
+      rocks-big-8: 5194188779717015625
+      rocks-big-9: -6844045356091095456
+      rocks-medium-1: 8231611979003465211
+      rocks-medium-10: 4393058378139895898
+      rocks-medium-11: 2400450194088244689
+      rocks-medium-12: 115959605424290829
+      rocks-medium-14: 7775142478982023316
+      rocks-medium-15: -2158618694850147564
+      rocks-medium-16: 5352524198453242347
+      rocks-medium-17: 6642880312905023321
+      rocks-medium-2: -6506767224936255845
+      rocks-medium-3: 760919029220163193
+      rocks-medium-4: -1784785396770858667
+      rocks-medium-5: -186407861947037086
+      rocks-medium-6: -3367788525691758314
+      rocks-medium-7: 1837441786296857612
+      rocks-medium-8: -2057386662582438547
+      rocks-medium-9: -5959296301298902311
+      rocks-small-1: -5967154622284973509
+      rocks-small-10: -6422009252439442412
+      rocks-small-2: 6077119168522845571
+      rocks-small-3: -9118257457929044920
+      rocks-small-4: 3509056682552494663
+      rocks-small-6: 5888515677983652490
+      rocks-small-7: 8054536983397876551
+      rocks-small-8: -1763720007508129168
+      rocks-small-9: -3392673667627885213
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
