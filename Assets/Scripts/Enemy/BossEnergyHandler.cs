@@ -1,21 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
 
 public class BossEnergyHandler : MonoBehaviour
 {
-    public Image energyBar;
+    [SerializeField] private Image energyBar;
     [SerializeField] private GameObject victoryScreen; 
-    private BossCollisionDetectionHandler collisionDetectionHandler;
+    [SerializeField] private BossCollisionDetectionHandler collisionDetectionHandler;
+
+    void Awake()
+    {
+        if (collisionDetectionHandler == null)
+            collisionDetectionHandler = GetComponent<BossCollisionDetectionHandler>();
+    }
 
     void Start()
     {
         energyBar.fillAmount = 1f; 
-        collisionDetectionHandler = GetComponent<BossCollisionDetectionHandler>(); 
         collisionDetectionHandler.onHurt += UpdateBar;    
     }
-
+    
+    void OnDestroy()
+    {
+        collisionDetectionHandler.onHurt -= UpdateBar;
+    }
+    
     void UpdateBar()
     {
         energyBar.fillAmount -= 0.05f; 
@@ -25,10 +33,5 @@ public class BossEnergyHandler : MonoBehaviour
             victoryScreen.SetActive(true);
             gameScreen.SetActive(false);
         }
-    }
-
-    private void OnDestroy()
-    {
-        collisionDetectionHandler.onHurt -= UpdateBar;
     }
 }

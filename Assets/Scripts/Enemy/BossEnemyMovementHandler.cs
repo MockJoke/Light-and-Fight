@@ -1,25 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System; 
+using System;
 
 public class BossEnemyMovementHandler : MonoBehaviour
 {
-    GameObject playerLight; 
-    GameObject[] platforms;
-    BoxCollider2D boxCollider;
-
+    [SerializeField] private GameObject playerLight; 
+    [SerializeField] private CircleCollider2D circleCollider;
+    
+    private GameObject[] platforms;
+    private bool moving = true;
+    
     public Action onHitLight; 
 
-    bool moving = true;
+    [SerializeField] private float timeToMove = 3; 
+    [SerializeField] private float platformOffsetY = 1;
 
-    public float timeToMove = 3; 
-    public float platfromOffsetY = 1; 
+    void Awake()
+    {
+        if (playerLight == null)
+            playerLight = GameObject.FindGameObjectWithTag("Player_Lighter");
+        
+        if (circleCollider == null)
+            circleCollider = GetComponent<CircleCollider2D>();
+    }
+
     void Start()
     {
-        playerLight = GameObject.FindGameObjectWithTag("Player_Lighter"); 
         platforms = GameObject.FindGameObjectsWithTag("Platform");
-        boxCollider = GetComponent<BoxCollider2D>();
+        
         Move();  
     }
 
@@ -63,7 +71,7 @@ public class BossEnemyMovementHandler : MonoBehaviour
         GameObject gotoPlatform = platforms[UnityEngine.Random.Range(0, platforms.Length)];
         Vector2 platformPos = gotoPlatform.transform.position;
 
-        bool isIntersecting = Physics2D.OverlapCircle(platformPos + (Vector2.up * platfromOffsetY), 0.1f);
+        bool isIntersecting = Physics2D.OverlapCircle(platformPos + (Vector2.up * platformOffsetY), 0.1f);
         if(isIntersecting)
         {
             return getValidPosition();
@@ -76,8 +84,9 @@ public class BossEnemyMovementHandler : MonoBehaviour
 
     private void Move()
     {
-        transform.position = getValidPosition() + (Vector2.up * platfromOffsetY);
+        transform.position = getValidPosition() + (Vector2.up * platformOffsetY);
         moving = false;
+        
         ////move the enemy only when it's on light
         //if (!isOnLight())
         //{ 

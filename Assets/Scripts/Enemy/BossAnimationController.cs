@@ -1,22 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossAnimationController : MonoBehaviour
 {
-    private BossEnemyMovementHandler bossEnemyMovementHandler;
-    private BossCollisionDetectionHandler bossCollisionDetectionHandler;
-    private BossAttackHandler bossAttackHandler; 
-    private Animator animator; 
+    [SerializeField] private BossEnemyMovementHandler bossEnemyMovementHandler;
+    [SerializeField] private BossCollisionDetectionHandler bossCollisionDetectionHandler;
+    [SerializeField] private GameObject mouth;
+    [SerializeField] private BossAttackHandler bossAttackHandler; 
+    [SerializeField] private Animator animator;
+    
+    private static readonly int onLightAnimString = Animator.StringToHash("onLight");
+    private static readonly int hurtAnimString = Animator.StringToHash("Hurt");
+    private static readonly int spitAnimString = Animator.StringToHash("onSpit");
+
+    void Awake()
+    {
+        if (animator == null)
+            animator = GetComponent<Animator>();
+        
+        if (bossEnemyMovementHandler == null)
+            bossEnemyMovementHandler = GetComponent<BossEnemyMovementHandler>();
+        
+        if (bossCollisionDetectionHandler == null)
+            bossCollisionDetectionHandler = GetComponent<BossCollisionDetectionHandler>();
+        
+        if (bossAttackHandler)
+            bossAttackHandler = mouth.GetComponent<BossAttackHandler>();
+    }
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        bossEnemyMovementHandler = GetComponent<BossEnemyMovementHandler>();
-        bossCollisionDetectionHandler = GetComponent<BossCollisionDetectionHandler>();
-
-        GameObject attackHandler = GameObject.Find("Mouth");
-        bossAttackHandler = attackHandler.GetComponent<BossAttackHandler>();
         bossEnemyMovementHandler.onHitLight += OnLight;
         bossCollisionDetectionHandler.onHurt += OnHurt;
         bossAttackHandler.onSpit += OnSpit;
@@ -24,17 +36,17 @@ public class BossAnimationController : MonoBehaviour
 
     void OnLight()
     {
-        animator.SetTrigger("onLight"); 
+        animator.SetTrigger(onLightAnimString); 
     }
 
     void OnHurt()
     {
-        animator.SetTrigger("Hurt"); 
+        animator.SetTrigger(hurtAnimString); 
     }
 
     void OnSpit()
     {
-        animator.SetTrigger("onSpit");
+        animator.SetTrigger(spitAnimString);
     }
 
     private void OnDestroy()

@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System; 
+using System;
 
 public class PlayerFightAttackHandler : MonoBehaviour
 {
-    private PlayerMovementHandler playerMovementHandler;
     public Action<int> onAttack;
+    
+    [SerializeField] private PlayerMovementHandler playerMovementHandler;
 
-    public GameObject attackAreaRight;
-    public GameObject attackAreaLeft; 
+    [SerializeField] private GameObject attackAreaRight;
+    [SerializeField] private GameObject attackAreaLeft;
 
-    private void Start()
+    void Awake()
     {
-        playerMovementHandler = GetComponent<PlayerMovementHandler>(); 
+        if (playerMovementHandler == null)
+            playerMovementHandler = GetComponent<PlayerMovementHandler>();
     }
+    
     void Update()
     {
         if(Input.GetMouseButtonDown(0))
@@ -37,6 +38,7 @@ public class PlayerFightAttackHandler : MonoBehaviour
     {
         attackAreaRight.SetActive(false); 
     }
+    
     public void DisableLeftAttack()
     {
         attackAreaLeft.SetActive(false); 

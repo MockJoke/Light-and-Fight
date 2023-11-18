@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement; 
+
 public class Gameplay : MonoBehaviour
 {
-    public Button restartBtn; 
-    private Button pauseBtn;
-    public Button tipsBtn;
+    [SerializeField] private Button restartBtn;
+    [SerializeField] public Button tipsBtn;
+    [SerializeField] private GameObject gamePlayScreen; 
     [SerializeField] private GameObject controlsScreen; 
 
     // Start is called before the first frame update
@@ -17,12 +16,6 @@ public class Gameplay : MonoBehaviour
         tipsBtn.onClick.AddListener(onClickTipsBtn);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void onClickRestartBtn()
     {
         SceneManager.LoadScene(0); 
@@ -30,8 +23,7 @@ public class Gameplay : MonoBehaviour
 
     void onClickTipsBtn()
     {
-        GameObject gameScreen = GameObject.Find("GameScreen");
         controlsScreen.SetActive(true);
-        gameScreen.SetActive(false);
+        gamePlayScreen.SetActive(false);
     }
 }

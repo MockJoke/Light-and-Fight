@@ -1,30 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerFightAnimationController : MonoBehaviour
 {
-    private PlayerMovementHandler playerMovementHandler;
-    private CollisionDetectionHandler collisionDetectionHandler;
-    private PlayerFightAttackHandler playerFightAttackHandler; 
-    private Animator animator;
+    [SerializeField] private PlayerMovementHandler playerMovementHandler;
+    [SerializeField] private CollisionDetectionHandler collisionDetectionHandler;
+    [SerializeField] private PlayerFightAttackHandler playerFightAttackHandler; 
+    [SerializeField] private Animator animator;
+    
+    private static readonly int jumpAnimString = Animator.StringToHash("Jumping");
+    private static readonly int walkingRightAnimString = Animator.StringToHash("Walking_Right");
+    private static readonly int walkingLeftAnimString = Animator.StringToHash("Walking_Left");
+    private static readonly int attackingRightAnimString = Animator.StringToHash("Attacking_Right");
+    private static readonly int attackingLeftAnimString = Animator.StringToHash("Attacking_Left");
+    private static readonly int hurtingAnimString = Animator.StringToHash("Hurting");
+
+    void Awake()
+    {
+        if (playerMovementHandler == null)
+            playerMovementHandler = GetComponent<PlayerMovementHandler>();
+        
+        if (collisionDetectionHandler == null)
+            collisionDetectionHandler = GetComponent<CollisionDetectionHandler>();
+                
+        if (playerFightAttackHandler == null)
+            playerFightAttackHandler = GetComponent<PlayerFightAttackHandler>();
+        
+        if (animator == null)
+            animator = GetComponent<Animator>();
+    }
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        playerMovementHandler = GetComponent<PlayerMovementHandler>();
-        collisionDetectionHandler = GetComponent<CollisionDetectionHandler>();
-        playerFightAttackHandler = GetComponent<PlayerFightAttackHandler>(); 
         playerMovementHandler.onJump += OnJump;
         playerMovementHandler.onWalk += OnWalk;
         playerFightAttackHandler.onAttack += OnAttack; 
         collisionDetectionHandler.onTouchEnemy += OnHurt;
         collisionDetectionHandler.onTouchGround += OnGround;
     }
+    
+    void OnDestroy()
+    {
+        playerMovementHandler.onJump -= OnJump;
+        playerMovementHandler.onWalk -= OnWalk;
+        collisionDetectionHandler.onTouchEnemy -= OnHurt;
+    }
 
     void OnJump()
     {
-        animator.SetBool("Jumping", true);
+        animator.SetBool(jumpAnimString, true);
     }
 
     void OnWalk(int direction)
@@ -42,8 +66,8 @@ public class PlayerFightAnimationController : MonoBehaviour
             default:
                 break;
         }
-        animator.SetBool("Walking_Right", walkingRight);
-        animator.SetBool("Walking_Left", walkingLeft);
+        animator.SetBool(walkingRightAnimString, walkingRight);
+        animator.SetBool(walkingLeftAnimString, walkingLeft);
     }
      
     void OnAttack(int attackDirection)
@@ -61,24 +85,17 @@ public class PlayerFightAnimationController : MonoBehaviour
             default:
                 break;
         }
-        animator.SetBool("Attacking_Right", attackingRight);
-        animator.SetBool("Attacking_Left", attackingLeft);
+        animator.SetBool(attackingRightAnimString, attackingRight);
+        animator.SetBool(attackingLeftAnimString, attackingLeft);
     }
 
     void OnGround()
     {
-        animator.SetBool("Jumping", false);
+        animator.SetBool(jumpAnimString, false);
     }
 
     void OnHurt()
     {
-        animator.SetBool("Hurting", true);
-    }
-
-    private void OnDestroy()
-    {
-        playerMovementHandler.onJump -= OnJump;
-        playerMovementHandler.onWalk -= OnWalk;
-        collisionDetectionHandler.onTouchEnemy -= OnHurt;
+        animator.SetBool(hurtingAnimString, true);
     }
 }

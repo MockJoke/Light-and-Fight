@@ -1,38 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System; 
 
 public class PlayerMovementHandler : MonoBehaviour
 {
+    [SerializeField] private Rigidbody2D rb;
+    
     [Header("Movement Variables")]
-    public float speed = 10; 
-    public float jumpForce = 10;
+    [SerializeField] private float speed = 10; 
+    [SerializeField] private float jumpForce = 10;
     [HideInInspector] public int currentDirection = 1; 
-
-    Rigidbody2D m_Rigidbody;
     
     [Header("Input Movement Controls")] 
-    public KeyCode left;
-    public KeyCode right;
-    public KeyCode jump;
+    [SerializeField] private KeyCode left;
+    [SerializeField] private KeyCode right;
+    [SerializeField] private KeyCode jump;
 
     public Action onJump; 
-    public Action<int> onWalk; 
+    public Action<int> onWalk;
 
-    void Start()
+    void Awake()
     {
-        m_Rigidbody = GetComponent<Rigidbody2D>();    
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
     }
-
     
     void Update()
     {
         int horizontal = ReadHorizontalInput();
+        
         if(horizontal != 0)
         {
             MoveHorizontal(horizontal); 
         }
+        
         ReadHorizontalInput(); 
         ReadJumpInput();
     }
@@ -63,7 +63,7 @@ public class PlayerMovementHandler : MonoBehaviour
     {
         if(Input.GetKey(jump))
         {
-            m_Rigidbody.velocity = Vector2.up * jumpForce; 
+            rb.velocity = Vector2.up * jumpForce; 
             onJump?.Invoke(); 
         }
     }

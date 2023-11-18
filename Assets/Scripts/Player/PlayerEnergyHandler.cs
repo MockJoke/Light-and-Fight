@@ -1,29 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
 
 public class PlayerEnergyHandler : MonoBehaviour
 {
-    public Image energyBar;
-    [SerializeField] private GameObject gameoverScreen; 
-    private CollisionDetectionHandler collisionDetectionHandler;
+    [SerializeField] private Image energyBar;
+    [SerializeField] private GameObject gamePlayScreen;
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private CollisionDetectionHandler collisionDetectionHandler;
+
+    void Awake()
+    {
+        if (collisionDetectionHandler == null)
+            collisionDetectionHandler = GetComponent<CollisionDetectionHandler>();
+    }
 
     void Start()
     {
         energyBar.fillAmount = 1f;
-        collisionDetectionHandler = GetComponent<CollisionDetectionHandler>();
         collisionDetectionHandler.onTouchEnemy += UpdateBar; 
     }
 
     void UpdateBar()
     {
-        energyBar.fillAmount -= 0.02f; 
+        energyBar.fillAmount -= 0.02f;
+        
         if(energyBar.fillAmount <= 0)
         {
-            GameObject gameScreen = GameObject.Find("GameScreen"); 
-            gameoverScreen.SetActive(true);
-            gameScreen.SetActive(false);
+            gameOverScreen.SetActive(true);
+            gamePlayScreen.SetActive(false);
         }
     }
 

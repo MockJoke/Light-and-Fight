@@ -1,18 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerLightAnimationController : MonoBehaviour
 {
-    private PlayerMovementHandler playerMovementHandler; 
-    private CollisionDetectionHandler collisionDetectionHandler; 
-    private Animator animator; 
-
+    [SerializeField] private PlayerMovementHandler playerMovementHandler; 
+    [SerializeField] private CollisionDetectionHandler collisionDetectionHandler; 
+    [SerializeField] private Animator animator;
+    
+    private static readonly int jumpAnimString = Animator.StringToHash("Jumping");
+    private static readonly int walkingRightAnimString = Animator.StringToHash("Walking_Right");
+    private static readonly int walkingLeftAnimString = Animator.StringToHash("Walking_Left");
+    private static readonly int hurtingAnimString = Animator.StringToHash("Hurting");
+    
+    void Awake()
+    {
+        if (playerMovementHandler == null)
+            playerMovementHandler = GetComponent<PlayerMovementHandler>();
+        
+        if (collisionDetectionHandler == null)
+            collisionDetectionHandler = GetComponent<CollisionDetectionHandler>();
+        
+        if (animator == null)
+            animator = GetComponent<Animator>();
+    }
+    
     void Start()
     {
-        animator = GetComponent<Animator>();
-        playerMovementHandler = GetComponent<PlayerMovementHandler>();
-        collisionDetectionHandler = GetComponent<CollisionDetectionHandler>(); 
         playerMovementHandler.onJump += OnJump;
         playerMovementHandler.onWalk += OnWalk;
         collisionDetectionHandler.onTouchEnemy += OnHurt;
@@ -21,7 +33,7 @@ public class PlayerLightAnimationController : MonoBehaviour
 
     void OnJump()
     {
-        animator.SetBool("Jumping", true);
+        animator.SetBool(jumpAnimString, true);
     }
 
     void OnWalk(int direction)
@@ -39,18 +51,18 @@ public class PlayerLightAnimationController : MonoBehaviour
             default:
                 break; 
         }
-        animator.SetBool("Walking_Right", walkingRight);
-        animator.SetBool("Walking_Left", walkingLeft);
+        animator.SetBool(walkingRightAnimString, walkingRight);
+        animator.SetBool(walkingLeftAnimString, walkingLeft);
     }
 
     void OnGround()
     {
-        animator.SetBool("Jumping", false); 
+        animator.SetBool(jumpAnimString, false); 
     }
 
     void OnHurt()
     {
-        animator.SetBool("Hurting", true); 
+        animator.SetBool(hurtingAnimString, true); 
     }
 
     private void OnDestroy()
